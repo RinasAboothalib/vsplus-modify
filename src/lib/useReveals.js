@@ -1,14 +1,13 @@
 import { useLayoutEffect } from 'react';
-import { gsap, reduced, canHover, ScrollTrigger } from './motion.js';
+import { gsap, reduced, canHover } from './motion.js';
 
-const REVEAL = '.sectionTitle, .resultItem, .featureCase, .catCard, .svcBlock_text, .capCard, .rosterItem, .missionTitle, .projectText';
+const REVEAL = '.sectionTitle, .resultItem, .studioFacts li, .featureCase, .catCard, .svcBlock_text, .capCard, .rosterItem, .missionTitle, .projectText';
 const PARALLAX = '.parallaxImg img, .svcBlock_img img, .missionImg img';
 /* Image frames that get the home page's unveil as they scroll in. */
-const settle = gsap.parseEase( 'power2.out' );
-const FRAMES = '.workPlaceholder, .flagMedia, .catCard_img, .capCard_img, .svcBlock_img, .aboutGrid_img, .missionImg, .projectFilm_frame, .nextProject_img, .reelCard_media';
+const FRAMES = '.workPlaceholder, .flagMedia, .catCard_img, .capCard_img, .svcBlock_img, .aboutGrid_img, .missionImg, .projectFilm_frame, .nextProject_img, .reelCard_media, .studioIntro_img';
 
 /**
- * Scroll reveals, section zoom, image parallax, the inner-page hero entrance and number
+ * Scroll reveals, image unveils, slight image parallax, the inner-page hero entrance and number
  * count-ups for everything inside `scope`. Everything is reverted on unmount.
  */
 export default function useReveals( scope, deps = [] ) {
@@ -33,7 +32,7 @@ export default function useReveals( scope, deps = [] ) {
 					return;
 				}
 				gsap.fromTo( frame,
-					{ clipPath: 'inset(100% 0% 0% 0%)', y: 60 },
+					{ clipPath: 'inset(100% 0% 0% 0%)', y: 30 },
 					{
 						clipPath: 'inset(0% 0% 0% 0%)', y: 0, duration: 1.4, ease: 'expo.out',
 						clearProps: 'clipPath',
@@ -41,37 +40,15 @@ export default function useReveals( scope, deps = [] ) {
 					} );
 			} );
 
-			// Phones: no scrubbed parallax or section zoom. Both repaint large layers on every
-			// scroll frame, which is what makes touch scrolling stutter.
+			// Phones: no scrubbed parallax. It repaints large layers on every scroll frame,
+			// which is what makes touch scrolling stutter. On a pointer it stays slight.
 			const touch = ! canHover;
 
 			( touch ? [] : gsap.utils.toArray( PARALLAX ) ).forEach( ( img ) => {
-				gsap.fromTo( img, { yPercent: -6, scale: 1.12 }, {
-					yPercent: 6,
+				gsap.fromTo( img, { yPercent: -3, scale: 1.06 }, {
+					yPercent: 3,
 					ease: 'none',
 					scrollTrigger: { trigger: img.parentNode, start: 'top bottom', end: 'bottom top', scrub: true }
-				} );
-			} );
-
-			// Section zoom: each card settles from 94% to full size as its top
-			// rises into view. Scaled from the top edge so trigger positions stay
-			// true, and the transform is dropped once it is at full size.
-			const blocks = ( touch ? [] : gsap.utils.toArray( 'section, .featuredSection, .servicesPage' ) )
-				.filter( ( el ) => ! el.matches( '.vsHero' ) && ! el.parentElement.closest( 'section, .featuredSection, .servicesPage' ) )
-				// Very tall sections barely show the zoom, and scaling them costs a full repaint each frame.
-				.filter( ( el ) => el.offsetHeight < window.innerHeight * 1.6 );
-			blocks.forEach( ( el ) => {
-				el.style.transformOrigin = '50% 0';
-				ScrollTrigger.create( {
-					trigger: el,
-					start: 'top bottom',
-					end: 'top 45%',
-					onUpdate: ( { progress } ) => {
-						el.style.transform = progress >= 1 ? '' : `scale(${ 0.94 + 0.06 * settle( progress ) })`;
-					},
-					onRefresh: ( { progress } ) => {
-						el.style.transform = progress >= 1 ? '' : `scale(${ 0.94 + 0.06 * progress })`;
-					}
 				} );
 			} );
 

@@ -6,7 +6,7 @@
 	--ww-fg: #fff;
 	--ww-muted: rgba(255, 255, 255, 0.08);
 	--ww-muted-fg: rgba(255, 255, 255, 0.5);
-	--ww-accent: var(--lime, #ffd400);
+	--ww-accent: var(--lime, var(--signal));
 
 	position: relative;
 	width: 100%;
@@ -107,7 +107,7 @@
 	display: grid;
 	place-items: center;
 	pointer-events: none;
-	font-weight: 600;
+	font-weight: 500;
 	letter-spacing: -0.025em;
 	text-align: center;
 }
@@ -120,7 +120,7 @@
 	transform: translateY(-50%);
 	pointer-events: none;
 	opacity: 0;
-	font-weight: 600;
+	font-weight: 300;
 	line-height: 1.05;
 	letter-spacing: -0.025em;
 }
@@ -187,7 +187,7 @@
 	border: 1px solid rgba(255, 255, 255, 0.6);
 	color: var(--ww-fg);
 	font-size: 0.62rem;
-	font-weight: 600;
+	font-weight: 500;
 	letter-spacing: 0.1em;
 	text-transform: uppercase;
 	pointer-events: none;

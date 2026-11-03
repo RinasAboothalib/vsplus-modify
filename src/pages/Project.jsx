@@ -5,6 +5,7 @@ import { usePage } from '../context/PageContext.jsx';
 import useReveals from '../lib/useReveals.js';
 import { pad, ytEmbed, ytThumb } from '../lib/motion.js';
 import TLink from '../components/TLink.jsx';
+import SignalLine from '../components/SignalLine.jsx';
 import NotFound from './NotFound.jsx';
 
 export default function Project() {
@@ -29,12 +30,13 @@ function ProjectView( { index } ) {
 	return (
 		<div ref={ root }>
 			<header className="pageHero pageHero--project">
+				<SignalLine className="pageHero_lines" />
 				<div className="pageHero_inner">
 					<p className="projectNav">
 						<TLink to="/work/#films" className="btnLink">← All work</TLink>
 						<span>Project { pad( index + 1 ) } / { pad( data.films.length ) }</span>
 					</p>
-					<h1 className="pageTitle pageTitle--project">{ f.title }<i className="heroDot"></i></h1>
+					<h1 className="pageTitle pageTitle--project">{ f.title }<span className="plus" aria-hidden="true">+</span></h1>
 					<dl className="projectMeta">
 						<div><dt>Client</dt><dd>{ f.client }</dd></div>
 						<div><dt>Discipline</dt><dd>Videography</dd></div>

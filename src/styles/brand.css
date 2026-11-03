@@ -1,0 +1,1353 @@
+/* ==========================================================================
+   Visual Studios Plus — Signal Yellow brand layer
+   The parts of the Signal Yellow system that every page shares: type roles,
+   Ink surfaces, buttons and links, the three graphic signatures (the Signal
+   Yellow line, the Ink band, the Signal Yellow "+"), the header, menu and
+   page curtain, the home hero and studio sections, inner-page heroes and the
+   footer band. Tokens live in style.css; this file loads last.
+
+   Yellow rules (brand guidelines, 00 · Colour rules):
+     · Signal Yellow on Ink only — fills, numbers, "+", links, active states.
+     · On Paper: Yellow Deep text and focus rings; yellow only as a thick rule.
+     · Never behind client photography, never white text on it.
+     · One Signal Yellow button per screen: the header's "Start a project".
+   ========================================================================== */
+
+/* ---------- type roles ---------- */
+
+h1, h2, h3, h4, h5, h6,
+.sectionTitle,
+.pageTitle,
+.footerTitle,
+.missionTitle,
+.accName,
+[class*="_title"],
+[class*="Title"],
+[class*="_name"] {
+	font-family: var(--font-display);
+}
+
+h1, h2, h3, h4 {
+	font-weight: var(--fw-heading);
+}
+
+.lede,
+.pageLede {
+	font-family: var(--font-body);
+	line-height: 1.65;
+}
+
+/* Emphasis is a colour shift, never bold (Signal Yellow on Ink, Yellow Deep on Paper). */
+.signalText {
+	font-style: normal;
+	color: var(--signal-deep);
+}
+
+/* The Signal Yellow "+", taken from the logo. */
+.plus {
+	display: inline-block;
+	margin-left: 0.06em;
+	font-family: var(--font-display);
+	font-weight: var(--fw-display);
+	color: var(--signal-deep);
+}
+
+::selection {
+	background: var(--signal-glow);
+	color: var(--ink);
+}
+
+/* ---------- Ink surfaces ---------- */
+
+:is(.vsHero, .pageHero, .inkBand, .resultsSection, .featuredWrap, .aboutMission, .reelsRail, .svcRows,
+	.webProjSection, .svcPage--dark, .menuWrap, .nextProject_link, .sheetPanel, .siteHeader, .pageCurtain) {
+	--focus-ring: var(--focus-ring-ink);
+}
+
+:is(.vsHero, .pageHero, .inkBand, .resultsSection, .featuredWrap, .aboutMission, .reelsRail, .svcRows,
+	.webProjSection, .svcPage--dark, .menuWrap) :is(.eyebrow, .signalText, .plus, .plusLink) {
+	color: var(--signal);
+}
+
+:is(.vsHero, .pageHero, .inkBand, .resultsSection, .featuredWrap, .aboutMission, .reelsRail, .svcRows,
+	.webProjSection, .svcPage--dark, .menuWrap) :is(.lede, .lede--light) {
+	color: var(--on-ink);
+}
+
+/* Buttons on Ink stay monochrome (Paper outline), so the header keeps the one Signal Yellow fill. */
+:is(.resultsSection, .featuredWrap, .aboutMission, .reelsRail, .svcRows, .webProjSection, .svcPage--dark, .sheetPanel, .rv) .pillBtn {
+	background: transparent;
+	color: var(--paper);
+	border-color: rgba(250, 250, 248, 0.55);
+}
+
+:is(.resultsSection, .featuredWrap, .aboutMission, .reelsRail, .svcRows, .webProjSection, .svcPage--dark, .sheetPanel, .rv) .pillBtn:hover {
+	background: var(--paper);
+	color: var(--ink);
+	border-color: var(--paper);
+}
+
+/* ---------- buttons and links ---------- */
+
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.6rem;
+	min-height: 2.9rem;
+	padding: 0.95rem 1.5rem;
+	font: var(--fw-label) 0.76rem/1 var(--font-display);
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	text-decoration: none;
+	white-space: nowrap;
+	color: inherit;
+	background: transparent;
+	border: 1px solid transparent;
+	border-radius: 0;
+	cursor: pointer;
+	transition: background var(--dur-fast), color var(--dur-fast), border-color var(--dur-fast);
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+	opacity: 0.45;
+	cursor: not-allowed;
+}
+
+/* Ink on Signal Yellow: the one action that leads (brand guidelines, 03 · Website components). */
+.btn--signal {
+	background: var(--signal);
+	border-color: var(--signal);
+	color: var(--ink);
+}
+
+.btn--signal:hover {
+	background: var(--paper);
+	border-color: var(--paper);
+}
+
+.btn--signal:active {
+	background: var(--signal-glow);
+}
+
+/* Monochrome secondary: an outline in the surface's text colour. */
+.btn--ghost {
+	border-color: currentColor;
+}
+
+.btn--ghost:hover {
+	background: var(--paper);
+	border-color: var(--paper);
+	color: var(--ink);
+}
+
+.btn--ink {
+	background: var(--ink);
+	border-color: var(--ink);
+	color: var(--paper);
+}
+
+.btn--ink:hover {
+	background: var(--ink-2);
+}
+
+/* Link with the "+" sign-off: Yellow Deep on Paper, Signal Yellow on Ink. The line draws in on hover. */
+.plusLink {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 0.5em;
+	padding-bottom: 0.3em;
+	font: var(--fw-label) 0.76rem/1.3 var(--font-display);
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: var(--signal-deep);
+	background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+	transition: background-size var(--dur) var(--ease), color var(--dur-fast);
+}
+
+.plusLink:not([target="_blank"])::after {
+	content: '+';
+	font-weight: var(--fw-heading);
+	font-size: 1.35em;
+	line-height: 0.6;
+	transition: transform var(--dur) var(--ease);
+}
+
+.plusLink:hover {
+	background-size: 100% 1px;
+}
+
+.plusLink:hover::after {
+	transform: rotate(90deg);
+}
+
+/* Underlined text link (secondary actions on any surface). */
+.btnLink {
+	font: var(--fw-label) 0.76rem/1.3 var(--font-display);
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+}
+
+/* ---------- signature A: the Signal Yellow line ---------- */
+
+.signalLine {
+	display: block;
+	pointer-events: none;
+	overflow: visible;
+}
+
+.signalLine path {
+	fill: none;
+}
+
+/* Hairlines at any size; the Signal Yellow path scales with the art so its pathLength dash (the draw-in) holds. */
+.signalLine_mist {
+	stroke: var(--mist);
+	stroke-width: 1;
+	opacity: 0.2;
+	vector-effect: non-scaling-stroke;
+}
+
+.signalLine_signal {
+	stroke: var(--signal);
+	stroke-width: 1.5;
+	stroke-dasharray: 1;
+	stroke-dashoffset: 0;
+}
+
+/* ---------- signature B: the Ink band ---------- */
+
+.inkBand {
+	position: relative;
+	background: var(--ink);
+	color: var(--paper);
+	border-top: 2px solid var(--signal);
+}
+
+/* ---------- header ---------- */
+
+.siteHeader {
+	position: fixed;
+	inset: 0 0 auto 0;
+	z-index: 300;
+	height: var(--header-h);
+	color: var(--paper);
+	background: transparent;
+	transition: transform var(--dur) var(--ease), background var(--dur) ease, box-shadow var(--dur) ease;
+}
+
+body.is-scrolled .siteHeader,
+body.menu-open .siteHeader {
+	background: var(--ink);
+	box-shadow: 0 1px 0 var(--line-ink);
+}
+
+body.nav-hidden:not(.menu-open) .siteHeader {
+	transform: translateY(-100%);
+}
+
+.siteHeader_inner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 2rem;
+	height: 100%;
+	max-width: calc(var(--maxw) + var(--gutter) * 2);
+	margin: 0 auto;
+	padding: 0 var(--gutter);
+}
+
+.siteBrand {
+	display: block;
+	flex: 0 0 auto;
+	padding: 0.5rem 0;
+	color: var(--paper);
+}
+
+/* The full wordmark (approved artwork from the brand guidelines), shown in the surface's text colour. */
+.siteBrand_word {
+	display: block;
+	width: clamp(9.5rem, 13vw, 12.5rem);
+	aspect-ratio: 802 / 62;
+	background: currentColor;
+	-webkit-mask: url('/assets/img/VSP-wordmark.png') left center / contain no-repeat;
+	mask: url('/assets/img/VSP-wordmark.png') left center / contain no-repeat;
+}
+
+.siteNav {
+	display: flex;
+	align-items: center;
+	gap: clamp(1.25rem, 2.6vw, 2.75rem);
+}
+
+.siteNav_list {
+	display: flex;
+	gap: clamp(1.25rem, 2.6vw, 2.75rem);
+}
+
+.siteNav_link {
+	position: relative;
+	display: block;
+	padding: 0.6rem 0;
+	font: var(--fw-label) 0.76rem/1 var(--font-display);
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: var(--on-ink);
+	transition: color var(--dur-fast);
+}
+
+.siteNav_link::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0.2em;
+	bottom: 0;
+	height: 1px;
+	background: var(--paper);
+	transform: scaleX(0);
+	transform-origin: right;
+	transition: transform var(--dur) var(--ease);
+}
+
+.siteNav_link:hover {
+	color: var(--paper);
+}
+
+.siteNav_link:hover::after {
+	transform: scaleX(1);
+	transform-origin: left;
+}
+
+/* Active page: Signal Yellow underline on Ink. */
+.siteNav_link[aria-current="page"] {
+	color: var(--paper);
+}
+
+.siteNav_link[aria-current="page"]::after {
+	background: var(--signal);
+	transform: scaleX(1);
+}
+
+.menuToggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.7rem;
+	padding: 0.6rem 0;
+	font: var(--fw-label) 0.76rem/1 var(--font-display);
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	color: var(--paper);
+	background: none;
+	border: 0;
+	cursor: pointer;
+}
+
+.menuToggle_icon {
+	position: relative;
+	width: 1.5rem;
+	height: 0.55rem;
+}
+
+.menuToggle_icon::before,
+.menuToggle_icon::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: 1px;
+	background: currentColor;
+	transition: transform var(--dur) var(--ease), top var(--dur) var(--ease);
+}
+
+.menuToggle_icon::before { top: 0; }
+.menuToggle_icon::after { top: 100%; }
+
+.menuToggle[aria-expanded="true"] .menuToggle_icon::before { top: 50%; transform: rotate(45deg); }
+.menuToggle[aria-expanded="true"] .menuToggle_icon::after { top: 50%; transform: rotate(-45deg); }
+
+/* With the menu open, its own "Start a project" is the Signal Yellow button. */
+body.menu-open :is(.siteNav_list, .siteNav_cta) {
+	visibility: hidden;
+}
+
+@media (max-width: 1023px) {
+	.siteNav_list { display: none; }
+}
+
+@media (max-width: 639px) {
+	:root { --header-h: 4rem; }
+	.siteNav_cta { display: none; }
+	.siteBrand_word { width: 9.25rem; }
+}
+
+/* ---------- menu ---------- */
+
+.menuWrap {
+	position: fixed;
+	inset: 0;
+	z-index: 250;
+	display: flex;
+	align-items: center;
+	padding: calc(var(--header-h) + 2rem) var(--gutter) 3rem;
+	overflow-y: auto;
+	color: var(--paper);
+	background: var(--ink);
+	visibility: hidden;
+	clip-path: inset(0 0 100% 0);
+	transition: clip-path 0.7s var(--ease-in-out), visibility 0s linear 0.7s;
+}
+
+.menuWrap.is-open {
+	visibility: visible;
+	clip-path: inset(0 0 0 0);
+	transition: clip-path 0.7s var(--ease-in-out);
+}
+
+/* The Ink band down the left edge, ruled in Signal Yellow. */
+.menuWrap::before {
+	content: '';
+	position: fixed;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: calc(var(--gutter) * 0.5);
+	background: var(--ink-2);
+	border-right: 1px solid var(--signal);
+}
+
+.menuWrap_row {
+	display: grid;
+	grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+	align-items: end;
+	gap: 3rem 5rem;
+	width: 100%;
+	max-width: var(--maxw);
+	margin: 0 auto;
+}
+
+.menuItems {
+	display: flex;
+	flex-direction: column;
+	gap: 0.35rem;
+}
+
+.menuItems li {
+	opacity: 0;
+	transform: translateY(1.2rem);
+	transition: opacity 0.4s ease, transform 0.7s var(--ease);
+}
+
+.menuWrap.is-open .menuItems li {
+	opacity: 1;
+	transform: none;
+	transition-delay: calc(var(--i) * 45ms + 0.25s);
+}
+
+.menuItems a {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 0.3em;
+	font: var(--fw-display) clamp(2rem, 5vw, 4.2rem)/1.1 var(--font-display);
+	letter-spacing: -0.01em;
+	text-decoration: none;
+	color: var(--on-ink);
+	transition: color var(--dur-fast), transform var(--dur) var(--ease);
+}
+
+.menuItems a::after {
+	content: '+';
+	color: var(--signal);
+	opacity: 0;
+	transform: translateX(-0.3em);
+	transition: opacity var(--dur-fast), transform var(--dur) var(--ease);
+}
+
+.menuItems a:hover,
+.menuItems a.is-current {
+	color: var(--paper);
+}
+
+.menuItems a:hover {
+	transform: translateX(0.4rem);
+}
+
+.menuItems a:hover::after,
+.menuItems a.is-current::after {
+	opacity: 1;
+	transform: none;
+}
+
+.menuWrap_side {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 1.75rem;
+	padding-top: 2rem;
+	border-top: var(--rule-ink);
+}
+
+.menuWrap_note {
+	font: var(--fw-heading) 1.15rem/1.5 var(--font-display);
+	color: var(--paper);
+}
+
+.menuWrap_contact {
+	margin: 0;
+	font-size: 0.95rem;
+	line-height: 1.9;
+	color: var(--on-ink);
+}
+
+.menuWrap_contact a {
+	text-decoration: none;
+	opacity: 1;
+	color: var(--paper);
+}
+
+.menuWrap_contact a:hover {
+	color: var(--signal);
+}
+
+.menuWrap_addr {
+	display: block;
+	margin-top: 0.4rem;
+	color: var(--on-ink-dim);
+}
+
+.menuWrap .socialIcons a {
+	color: var(--paper);
+	border-color: var(--line-ink);
+}
+
+@media (max-width: 1023px) {
+	.menuWrap { align-items: flex-start; }
+	.menuWrap_row { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 639px) {
+	.menuWrap_note { display: none; }
+}
+
+/* ---------- page curtain (route transitions) ---------- */
+
+.pageCurtain {
+	position: fixed;
+	inset: 0;
+	z-index: 400;
+	display: grid;
+	place-items: center;
+	background: var(--ink);
+	border-top: 2px solid var(--signal);
+	pointer-events: none;
+	transform: translateY(100%);
+}
+
+.pageCurtain_mark {
+	width: 4.5rem;
+	aspect-ratio: 788 / 272;
+	background: var(--paper);
+	-webkit-mask: url('/assets/img/VSP-Square-logo.png') center / contain no-repeat;
+	mask: url('/assets/img/VSP-Square-logo.png') center / contain no-repeat;
+}
+
+/* ---------- back to top (Paper hump over the footer band) ---------- */
+
+.BackToTop_Curve path {
+	fill: var(--paper);
+}
+
+.BackToTop_Wrap p {
+	color: var(--ink);
+	font: var(--fw-label) 0.62rem/1 var(--font-display);
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+}
+
+/* ---------- home hero ---------- */
+
+.vsHero {
+	position: relative;
+	z-index: 2;
+	display: flex;
+	min-height: 100vh;
+	min-height: 100svh;
+	overflow: hidden;
+	isolation: isolate;
+	color: var(--paper);
+	background: var(--ink);
+}
+
+.vsHero_band {
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	z-index: 2;
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	width: 4rem;
+	padding: 1.75rem 0 2rem;
+	background: var(--ink-2);
+	border-right: 1px solid var(--signal);
+}
+
+.vsHero_mark {
+	width: 2.1rem;
+	aspect-ratio: 788 / 272;
+	background: var(--paper);
+	-webkit-mask: url('/assets/img/VSP-Square-logo.png') center / contain no-repeat;
+	mask: url('/assets/img/VSP-Square-logo.png') center / contain no-repeat;
+}
+
+.vsHero_band .plus {
+	font-size: 1.5rem;
+	line-height: 1;
+	color: var(--signal);
+}
+
+.vsHero_lines {
+	position: absolute;
+	right: -3%;
+	top: var(--header-h);
+	z-index: 0;
+	width: min(50vw, 760px);
+	height: calc(100% - var(--header-h));
+}
+
+.vsHero_inner {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	width: 100%;
+	max-width: calc(var(--maxw) + var(--gutter) * 2);
+	margin: 0 auto;
+	padding: calc(var(--header-h) + clamp(3rem, 12vh, 8rem)) var(--gutter) clamp(2.5rem, 6vh, 4rem);
+}
+
+.vsHero_title {
+	max-width: 12.5em;
+	margin: 0;
+	font: var(--fw-display) var(--fs-h1)/1.04 var(--font-display);
+	letter-spacing: -0.02em;
+}
+
+.vsHero_row {
+	display: block;
+	overflow: hidden;
+	padding-bottom: 0.08em;
+	margin-bottom: -0.08em;
+}
+
+.vsHero_row > span {
+	display: inline-block;
+}
+
+.vsHero_lede {
+	max-width: 33rem;
+	margin-top: 1.75rem;
+	font-size: var(--fs-lede);
+	line-height: 1.6;
+	color: var(--on-ink);
+}
+
+.vsHero_actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 1.25rem 2.25rem;
+	margin-top: 2.25rem;
+}
+
+.vsHero_tiles {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 1rem;
+	max-width: 60rem;
+	margin-top: clamp(2.75rem, 8vh, 5rem);
+}
+
+.heroTile_link {
+	position: relative;
+	display: block;
+	aspect-ratio: 16 / 10;
+	overflow: hidden;
+	color: var(--paper);
+	text-decoration: none;
+	background: var(--ink-2);
+}
+
+.heroTile_media img,
+.heroTile_media video {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 0;
+	transition: transform 1.2s var(--ease), opacity 0.6s ease;
+}
+
+.heroTile_media video {
+	opacity: 0;
+}
+
+/* An Ink fade under the label keeps it legible without touching the picture's colour. */
+.heroTile_link::after {
+	content: '';
+	position: absolute;
+	inset: 40% 0 0 0;
+	background: linear-gradient(to bottom, rgba(28, 27, 27, 0), rgba(28, 27, 27, 0.82));
+	pointer-events: none;
+}
+
+/* Signal Yellow line along the bottom edge on hover. */
+.heroTile_link::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 3;
+	height: 2px;
+	background: var(--signal);
+	transform: scaleX(0);
+	transform-origin: left;
+	transition: transform var(--dur) var(--ease);
+}
+
+.heroTile_link:hover::before,
+.heroTile_link:focus-visible::before {
+	transform: scaleX(1);
+}
+
+.heroTile_link:hover img {
+	transform: scale(1.04);
+}
+
+.heroTile_link:hover video,
+.heroTile_link:focus-visible video {
+	opacity: 1;
+}
+
+.heroTile_text {
+	position: absolute;
+	left: 0.9rem;
+	right: 0.9rem;
+	bottom: 0.8rem;
+	z-index: 2;
+	display: flex;
+	flex-direction: column;
+	gap: 0.15rem;
+}
+
+.heroTile_client {
+	font: var(--fw-heading) 1.05rem/1.2 var(--font-display);
+}
+
+.heroTile_work {
+	font: var(--fw-label) 0.6rem/1.4 var(--font-display);
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: var(--on-ink);
+}
+
+@media (min-width: 1200px) {
+	.vsHero_band { display: flex; }
+}
+
+@media (max-width: 1023px) {
+	.vsHero_tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 36rem; }
+	.vsHero_lines { width: 70vw; right: -25%; opacity: 0.7; }
+}
+
+@media (max-width: 639px) {
+	.vsHero { min-height: 0; }
+	.vsHero_inner { padding-top: calc(var(--header-h) + 3.5rem); }
+	.vsHero_title { font-size: clamp(2.35rem, 10.5vw, 3rem); }
+	.vsHero_tiles { gap: 0.6rem; margin-top: 2.5rem; }
+	.vsHero_lines { width: 110vw; right: -55%; opacity: 0.55; }
+}
+
+/* ---------- client showcase (roster) on Paper ---------- */
+
+.rosterSection {
+	background: var(--paper);
+	color: var(--ink);
+	box-shadow: none;
+	padding: var(--space-6) var(--gutter);
+}
+
+.rosterSection .eyebrow {
+	color: var(--signal-deep);
+}
+
+.rosterSection .lede {
+	color: var(--graphite);
+}
+
+.rosterFlow {
+	gap: 0;
+	border-top: var(--rule);
+	border-bottom: var(--rule);
+}
+
+.rosterFlow_row + .rosterFlow_row {
+	border-top: var(--rule);
+}
+
+.rosterFlow_track {
+	gap: 0;
+}
+
+/* Logos keep their own colours and proportions, each in an equal cell. */
+.rosterItem {
+	width: clamp(10rem, 15vw, 13rem);
+	padding: 1.6rem 1.25rem 1rem;
+	background: transparent;
+	border: 0;
+	border-right: var(--rule);
+	border-radius: 0;
+}
+
+.rosterItem span {
+	font: var(--fw-label) 0.58rem/1.4 var(--font-display);
+	letter-spacing: 0.2em;
+	color: var(--graphite);
+}
+
+/* ---------- home: studio ---------- */
+
+.studioIntro {
+	position: relative;
+	z-index: 2;
+	padding-top: var(--space-6);
+	background: var(--paper);
+}
+
+.studioIntro_inner {
+	display: grid;
+	grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+	align-items: end;
+	gap: clamp(2rem, 6vw, 6rem);
+	max-width: var(--maxw);
+	margin: 0 auto;
+	padding: 0 var(--gutter) var(--space-6);
+}
+
+.studioIntro .sectionTitle {
+	max-width: 17em;
+}
+
+.studioIntro_body {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 2rem;
+	margin-top: 2.5rem;
+	padding-top: 2rem;
+	border-top: var(--rule);
+	color: var(--graphite);
+}
+
+.studioIntro_links {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem 2.25rem;
+	margin-top: 2.5rem;
+}
+
+.studioIntro_img {
+	margin: 0;
+}
+
+.studioIntro_img img {
+	width: 100%;
+	aspect-ratio: 4 / 5;
+	object-fit: cover;
+}
+
+.studioIntro_img figcaption {
+	margin-top: 0.85rem;
+	font: var(--fw-label) 0.62rem/1.4 var(--font-display);
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	color: var(--graphite);
+}
+
+.studioFacts {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 2rem;
+	margin: 0;
+	padding: clamp(2.25rem, 4vw, 3.5rem) var(--gutter);
+	list-style: none;
+}
+
+.studioFacts li {
+	display: flex;
+	flex-direction: column;
+	gap: 0.6rem;
+	padding-left: 1.25rem;
+	border-left: var(--rule-ink);
+}
+
+.studioFacts_num {
+	font: var(--fw-display) clamp(1.9rem, 3.2vw, 3.2rem)/1 var(--font-display);
+	white-space: nowrap;
+	color: var(--signal);
+}
+
+.studioFacts_label {
+	font: var(--fw-label) 0.64rem/1.4 var(--font-display);
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	color: var(--on-ink);
+}
+
+@media (max-width: 1023px) {
+	.studioIntro_inner { grid-template-columns: 1fr; }
+	.studioIntro_img { max-width: 30rem; }
+	.studioIntro_img img { aspect-ratio: 3 / 2; }
+	.studioFacts { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 2.25rem; }
+}
+
+@media (max-width: 639px) {
+	.studioIntro_body { grid-template-columns: 1fr; gap: 1rem; }
+}
+
+/* ---------- home: services ---------- */
+
+/* Paper, not Stone: Yellow Deep labels need Paper behind them to clear AA contrast. */
+.servicesSection {
+	background: var(--paper);
+	padding: var(--space-6) var(--gutter);
+}
+
+.servicesLede {
+	color: var(--graphite);
+}
+
+.servicesHead_links {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem 2rem;
+	margin-top: 2rem;
+}
+
+.accordion .accNum {
+	font: var(--fw-label) 0.66rem/1 var(--font-display);
+	letter-spacing: 0.16em;
+	color: var(--graphite);
+}
+
+.accordion .accName {
+	font-weight: var(--fw-heading);
+}
+
+.accordion li.is-open .accNum {
+	color: var(--signal-deep);
+}
+
+/* The open service carries the thick Signal Yellow rule (the one yellow allowed on light surfaces). */
+.accordion li::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: -1px;
+	width: 3rem;
+	height: 3px;
+	background: var(--signal);
+	transform: scaleX(0);
+	transform-origin: left;
+	transition: transform var(--dur) var(--ease);
+}
+
+.accordion li.is-open::after {
+	transform: scaleX(1);
+}
+
+.accPanel p {
+	color: var(--graphite);
+}
+
+.accPanel .plusLink {
+	margin-left: 0.25rem;
+}
+
+/* ---------- results (Ink) ---------- */
+
+.resultsSection {
+	padding: var(--space-6) var(--gutter);
+}
+
+.resultNum {
+	font-family: var(--font-display);
+	font-weight: var(--fw-display);
+	color: var(--signal);
+}
+
+.resultLabel {
+	color: var(--paper);
+}
+
+.resultItem {
+	border-top-color: var(--line-ink);
+}
+
+.resultClient {
+	font: var(--fw-label) 0.64rem/1.4 var(--font-display);
+	letter-spacing: 0.2em;
+	color: var(--on-ink-dim);
+}
+
+/* ---------- showreel ---------- */
+
+.featuredSection {
+	background: var(--paper);
+	padding: var(--space-6) var(--gutter);
+}
+
+.featuredWrap {
+	padding: clamp(3rem, 6vw, 5rem) clamp(1.25rem, 5vw, 5rem);
+	border-top: 2px solid var(--signal);
+}
+
+.featuredWrap h3 {
+	font-weight: var(--fw-display);
+	font-size: var(--fs-h2);
+}
+
+.featuredText {
+	color: var(--on-ink);
+	max-width: 46rem;
+	margin: 0 auto;
+	padding-inline: 0;
+}
+
+.featuredMore a {
+	font: var(--fw-label) 0.76rem/1.3 var(--font-display);
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--signal);
+}
+
+.featuredMore a::after {
+	border-bottom-color: var(--signal);
+}
+
+.featuredSound {
+	font-family: var(--font-display);
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	border-radius: 0;
+}
+
+/* ---------- photography strip on Paper ---------- */
+
+.photoStrip {
+	background: var(--paper);
+	color: var(--ink);
+	padding: var(--space-6) 0;
+}
+
+.photoStrip .lede {
+	color: var(--graphite);
+}
+
+.photoStrip .btnLink {
+	color: var(--ink);
+}
+
+/* ---------- inner-page heroes (Ink band, Signal Yellow edge) ---------- */
+
+.pageHero {
+	position: relative;
+	overflow: hidden;
+	padding: calc(var(--header-h) + clamp(4rem, 13vh, 8.5rem)) var(--gutter) clamp(3.5rem, 8vh, 6rem);
+	color: var(--paper);
+	background: var(--ink);
+	border-bottom: 2px solid var(--signal);
+}
+
+.pageHero_lines {
+	position: absolute;
+	right: -4%;
+	top: 0;
+	z-index: 0;
+	width: min(44vw, 640px);
+	height: 100%;
+}
+
+.pageHero_inner {
+	position: relative;
+	z-index: 1;
+}
+
+.pageTitle {
+	font-family: var(--font-display);
+	font-weight: var(--fw-display);
+	font-size: clamp(2.9rem, 8vw, 8rem);
+	line-height: 1;
+	letter-spacing: -0.025em;
+	text-transform: none;
+}
+
+.pageTitle .plus {
+	color: var(--signal);
+}
+
+.pageTitle--project {
+	font-size: clamp(2.4rem, 6vw, 6rem);
+	letter-spacing: -0.02em;
+	line-height: 1.02;
+}
+
+.pageLede {
+	color: var(--on-ink);
+}
+
+.pageJump {
+	border-top: var(--rule-ink);
+	font: var(--fw-label) 0.7rem/1.4 var(--font-display);
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+}
+
+.pageJump a {
+	opacity: 1;
+	color: var(--on-ink);
+	transition: color var(--dur-fast);
+}
+
+.pageJump a:hover {
+	color: var(--signal);
+}
+
+.pageHero .btnLink,
+.pageHero .projectMeta dd,
+.pageHero .projectMeta a {
+	color: var(--paper);
+}
+
+.pageHero .projectMeta dt,
+.pageHero .projectNav {
+	color: var(--on-ink-dim);
+}
+
+.pageHero .pillBtn {
+	background: transparent;
+	color: var(--paper);
+	border-color: rgba(250, 250, 248, 0.55);
+}
+
+.pageHero .pillBtn:hover {
+	background: var(--paper);
+	color: var(--ink);
+}
+
+@media (max-width: 1023px) {
+	.pageHero_lines { width: 70vw; right: -30%; opacity: 0.6; }
+}
+
+/* ---------- footer: brief on Paper, then the Ink band ---------- */
+
+.siteFooter {
+	padding: 0;
+	background: var(--paper);
+	overflow: hidden;
+}
+
+.footerLead {
+	padding: var(--space-6) var(--gutter);
+	border-top: var(--rule);
+}
+
+.footerTitle {
+	font-weight: var(--fw-heading);
+	font-size: var(--fs-h2);
+	line-height: 1.08;
+	letter-spacing: -0.015em;
+}
+
+.footerLead_row p {
+	color: var(--graphite);
+}
+
+.footerBand {
+	padding: clamp(7rem, 11vw, 10rem) var(--gutter) 2.25rem;
+	overflow: hidden;
+}
+
+.footerBand_lines {
+	position: absolute;
+	left: 0;
+	top: 1rem;
+	width: 100%;
+	height: clamp(4.5rem, 8vw, 7rem);
+}
+
+.footerBand .footerInner {
+	position: relative;
+}
+
+.footerBand_top {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	gap: 2rem;
+	padding-bottom: 3rem;
+	border-bottom: var(--rule-ink);
+}
+
+.footerBand_brand {
+	display: block;
+	color: var(--paper);
+}
+
+.footerBand_brand .siteBrand_word {
+	width: clamp(12rem, 24vw, 19rem);
+}
+
+.footerBand_line {
+	max-width: 18em;
+	font: var(--fw-display) clamp(1.35rem, 2.3vw, 2.1rem)/1.25 var(--font-display);
+	text-align: right;
+}
+
+.footerBand .footerCols {
+	margin-top: 3rem;
+}
+
+.footerBand .footerCol {
+	gap: 0.3rem;
+	padding-top: 0;
+	border-top: 0;
+}
+
+.footerBand .fLabel {
+	font: var(--fw-label) 0.62rem/1.4 var(--font-display);
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	color: var(--on-ink-dim);
+}
+
+.footerBand .fAction,
+.footerBand .save_to_clipboard h4 {
+	font: var(--fw-body) 1rem/1.6 var(--font-body);
+	color: var(--paper);
+}
+
+.footerBand .fAction:hover,
+.footerBand .save_to_clipboard:hover h4 {
+	opacity: 1;
+	color: var(--signal);
+}
+
+.fAddress {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 0.9rem;
+	font-style: normal;
+	color: var(--paper);
+}
+
+.footerBand .footerList a {
+	font-size: 0.92rem;
+	color: var(--on-ink);
+}
+
+.footerBand .footerList a:hover {
+	opacity: 1;
+	color: var(--paper);
+}
+
+.footerBand .footerBar {
+	border-top: var(--rule-ink);
+	color: var(--on-ink-dim);
+}
+
+.footerBar_mark img {
+	filter: none;
+	height: 1.6rem;
+}
+
+/* Social icons stay monochrome on the band. */
+.footerBar .socialIcons a {
+	color: var(--paper);
+	border-color: var(--line-ink);
+}
+
+.footerBar .socialIcons a:is(:hover, :focus-visible) {
+	color: var(--ink);
+	background: var(--paper);
+	border-color: var(--paper);
+}
+
+@media (max-width: 639px) {
+	.footerBand_top { flex-direction: column; align-items: flex-start; }
+	.footerBand_line { text-align: left; }
+}
+
+/* ---------- shared pieces on inner pages ---------- */
+
+/* Service bullet lists: the Signal Yellow "+" in Yellow Deep on Paper. */
+.svcBlock_list li::before {
+	content: '+';
+	top: 50%;
+	width: auto;
+	height: auto;
+	border-radius: 0;
+	box-shadow: none;
+	font: var(--fw-heading) 1.1rem/1 var(--font-display);
+	color: var(--signal-deep);
+}
+
+.svcIndex_list a.is-active,
+.svcIndex_list a:hover {
+	color: var(--signal-deep);
+}
+
+.chip {
+	font-family: var(--font-display);
+	font-weight: var(--fw-label);
+	font-size: 0.7rem;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	border-radius: 0;
+}
+
+.pillList li {
+	border-radius: 0;
+	color: var(--graphite);
+}
+
+/* Results panels on Paper: Ink on Yellow Glow (brand: "Glow is for results"). */
+.caseSlide_result {
+	color: var(--ink);
+}
+
+.svcPage_card:hover {
+	background: var(--signal-glow);
+}
+
+.menuItems a.is-current {
+	color: var(--paper);
+}
+
+/* ---------- reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+	.menuWrap,
+	.menuWrap.is-open,
+	.menuItems li {
+		transition: none;
+	}
+	.menuItems li { opacity: 1; transform: none; }
+	.heroTile_media video { display: none; }
+}

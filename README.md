@@ -23,7 +23,7 @@ src/pages/            one component per route
 src/components/       layout (Nav, Footer, BackToTop, SheetDock), home sections, work pieces
 src/context/          page meta + footer CTA, contact sheet, page transitions
 src/lib/              motion helpers (GSAP/Lenis), storage, scroll reveals
-src/styles/           global styles
+src/styles/           style.css (brand tokens + home), pages.css (inner pages), brand.css (Signal Yellow layer)
 legacy-static/        the previous static HTML build, kept for reference (safe to delete)
 ```
 
@@ -36,3 +36,16 @@ legacy-static/        the previous static HTML build, kept for reference (safe t
 Most text and lists live in `src/data/site.js`. To add photos, put the file in `public/assets/photos/full/`, a ~900px WebP in `public/assets/photos/thumb/`, and an entry in `src/data/photos.json`.
 
 The contact form opens the visitor's e-mail app with the brief filled in; there is no server-side form handling.
+
+## Brand system (Signal Yellow edition)
+
+Colour, type, spacing and motion tokens live in the `:root` block at the top of `src/styles/style.css`
+(`--ink`, `--paper`, `--signal`, `--signal-deep`, `--signal-glow`, plus Stone/Mist/Graphite). Jost 200/300/500
+is used for display, headings and labels, and Quicksand 400 for body copy. `src/styles/brand.css` holds the shared
+components: header and menu, `.btn` / `.plusLink`, the three signatures (`<SignalLine />`, `.inkBand`, `.plus`),
+the home hero and studio sections, inner-page heroes and the footer band.
+
+Yellow rules: Signal Yellow only on Ink (fills, numbers, "+", links, active states); Yellow Deep for accent text
+on Paper; never behind client photography; one Signal Yellow button per screen (the header's "Start a project").
+The full wordmark in `public/assets/img/VSP-wordmark.png` was taken from the brand guidelines PDF; swap in the
+master vector file when it is available.

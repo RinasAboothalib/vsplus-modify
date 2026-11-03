@@ -2,8 +2,8 @@ import { useEffect, useRef } from 'react';
 import { canHover, reduced } from '../../lib/motion.js';
 
 /*
- * Jelly-edge mask over a grid section. Per card, paints white (the section
- * colour) between a rectangle 2px outside the image and a soft inner contour.
+ * Jelly-edge mask over a grid section. Per card, paints the section's own
+ * background colour (Paper, or Ink on dark bands) between a rectangle 2px outside the image and a soft inner contour.
  * Contour points within 10vw of the cursor ease inward along their normal,
  * so the image edge dents toward the pointer and springs back when it leaves.
  * Mouse pointers only, at 900px wide and up (hidden otherwise by CSS).
@@ -58,8 +58,21 @@ export default function JellyCanvas( { selector = '.workPlaceholder' } ) {
 		let running = false;
 		let settle = 0;
 		let rafId = 0;
+		let fill = '#FAFAF8';
+
+		// The first opaque background up the tree is the colour the dents cut back to.
+		const sectionFill = () => {
+			for ( let el = section; el; el = el.parentElement ) {
+				const bg = getComputedStyle( el ).backgroundColor;
+				if ( bg && bg !== 'transparent' && ! /rgba\(.*,\s*0\)$/.test( bg ) ) {
+					return bg;
+				}
+			}
+			return fill;
+		};
 
 		const size = () => {
+			fill = sectionFill();
 			const w = section.offsetWidth;
 			const h = section.offsetHeight;
 			canvas.width = Math.round( w * dpr );
@@ -81,7 +94,7 @@ export default function JellyCanvas( { selector = '.workPlaceholder' } ) {
 
 			ctx.setTransform( dpr, 0, 0, dpr, 0, 0 );
 			ctx.clearRect( 0, 0, canvas.width, canvas.height );
-			ctx.fillStyle = '#ffffff';
+			ctx.fillStyle = fill;
 
 			section.querySelectorAll( selector ).forEach( ( ph ) => {
 				const r = ph.getBoundingClientRect();

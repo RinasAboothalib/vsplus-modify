@@ -1,23 +1,72 @@
 /* ==========================================================================
    Visual Studios Plus — home
-   Layout and motion language modelled on a pinned-hero / masonry agency site:
-   fixed chrome, blob reveal, logo strip, jelly-edged work grid, dark feature
-   block, cream footer. Brand: VS+ ink + acid lime.
+   Brand: Signal Yellow edition. Monochrome Ink and Paper, lit by Signal
+   Yellow (10% max, one Signal Yellow moment per screen). Light Jost for
+   display and headings, Quicksand for reading.
    ========================================================================== */
 
 :root {
-	--ink: #0a0a0a;
-	--ink-2: #1c1c1c;
-	--lime: #ffd400; /* brand accent: yellow (was lime green #ffd400) */
-	--hi: #ffd400; /* highlight yellow: scroll-lit and marked key words */
-	--cream: #f8f6f5;
-	--hero-bg: #050505;
-	--white: #ffffff;
-	--muted: #8a8687;
-	--line: rgba(10, 10, 10, 0.16);
+	/* Palette (Signal Yellow brand guidelines, 00 · Colour palette) */
+	--ink: #1C1B1B;
+	--paper: #FAFAF8;
+	--signal: #F2C230; /* on Ink only: fills, numbers, "+", links, active states */
+	--signal-deep: #8A6A00; /* accent text, links and labels on light surfaces */
+	--signal-glow: #FBF0C9; /* result panels, tags, notes */
+	--stone: #EDEDEA;
+	--mist: #C9C9C5;
+	--graphite: #6B6B67;
+	--ink-2: #141313; /* the band, a shade under Ink */
+	--on-ink: rgba(250, 250, 248, 0.72); /* secondary text on Ink */
+	--on-ink-dim: rgba(250, 250, 248, 0.5);
+	--line: rgba(28, 27, 27, 0.14);
+	--line-ink: rgba(250, 250, 248, 0.14);
+
+	/* Older names, kept so every component reads the new palette. */
+	--lime: var(--signal);
+	--hi: var(--signal);
+	--cream: var(--paper);
+	--white: var(--paper);
+	--hero-bg: var(--ink);
+	--muted: var(--graphite);
+
+	/* Type */
+	--font-display: 'Jost', 'Futura', 'Century Gothic', Arial, sans-serif;
+	--font-body: 'Quicksand', 'Nunito', Arial, sans-serif;
+	--font: var(--font-body);
+	--fw-display: 200;
+	--fw-heading: 300;
+	--fw-label: 500;
+	--fw-body: 400;
+	--label-tracking: 0.22em;
+	--fs-label: 0.72rem;
+	--fs-body: 1rem;
+	--fs-lede: clamp(1.05rem, 1.3vw, 1.25rem);
+	--fs-h3: clamp(1.35rem, 2vw, 1.85rem);
+	--fs-h2: clamp(2.1rem, 4.2vw, 3.9rem);
+	--fs-h1: clamp(2.8rem, 6.4vw, 6.4rem);
+	--fs-display: clamp(3.2rem, 9vw, 9.5rem);
+
+	/* Space and layout */
+	--space-1: 0.5rem;
+	--space-2: 1rem;
+	--space-3: 1.5rem;
+	--space-4: 2.5rem;
+	--space-5: 4rem;
+	--space-6: clamp(4.5rem, 9vw, 8rem);
 	--gutter: 6vw;
 	--maxw: 1550px;
-	--font: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+	--header-h: 4.5rem;
+
+	/* Lines, focus, motion */
+	--rule: 1px solid var(--line);
+	--rule-ink: 1px solid var(--line-ink);
+	--focus-ring: 2px solid var(--signal-deep);
+	--focus-ring-ink: 2px solid var(--signal);
+	--ease: cubic-bezier(0.16, 1, 0.3, 1);
+	--ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+	--dur-fast: 0.2s;
+	--dur: 0.45s;
+	--dur-slow: 0.9s;
 }
 
 *,
@@ -33,12 +82,12 @@ body {
 	max-width: 100%;
 	/* clip, not hidden: hidden turns body into a scroll container and breaks position: sticky */
 	overflow-x: clip;
-	background: var(--ink);
+	background: var(--paper);
 	color: var(--ink);
-	font-family: var(--font);
-	font-weight: 300;
+	font-family: var(--font-body);
+	font-weight: var(--fw-body);
 	font-size: 18px;
-	line-height: 1.4;
+	line-height: 1.6;
 	-webkit-font-smoothing: antialiased;
 	scrollbar-width: none;
 }
@@ -101,10 +150,13 @@ ul {
 	left: 1rem;
 	top: -4rem;
 	z-index: 10000;
-	background: var(--lime);
-	color: var(--ink);
+	background: var(--ink);
+	color: var(--paper);
+	outline: var(--focus-ring-ink);
 	padding: 0.6rem 1rem;
-	font-weight: 500;
+	font: var(--fw-label) 0.8rem/1 var(--font-display);
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
 	text-decoration: none;
 	transition: top 0.2s;
 }
@@ -113,304 +165,31 @@ ul {
 	top: 1rem;
 }
 
+/* Focus: Yellow Deep on light surfaces, Signal Yellow on Ink (see brand.css for the Ink scopes). */
 :focus-visible {
-	outline: 2px solid var(--lime);
+	outline: var(--focus-ring);
 	outline-offset: 3px;
 }
 
+/* Labels: Jost 500, caps, wide tracking; Yellow Deep on Paper, Signal Yellow on Ink. */
 .eyebrow {
-	font-size: 0.75rem;
-	letter-spacing: 0.08em;
+	font-family: var(--font-display);
+	font-weight: var(--fw-label);
+	font-size: var(--fs-label);
+	line-height: 1.5;
+	letter-spacing: var(--label-tracking);
 	text-transform: uppercase;
-	color: var(--muted);
+	color: var(--signal-deep);
 	margin-bottom: 1.25rem;
 }
 
 .sectionTitle {
-	font-size: clamp(2rem, 4vw, 3.6rem);
-	font-weight: 600;
-	line-height: 1.05;
-	letter-spacing: -0.02em;
+	font-family: var(--font-display);
+	font-size: var(--fs-h2);
+	font-weight: var(--fw-heading);
+	line-height: 1.08;
+	letter-spacing: -0.015em;
 }
-
-/* ==========================================================================
-   Fixed chrome: logo, tagline, legibility scrim, top bar
-   ========================================================================== */
-
-.page_content_wrap {
-	position: relative;
-	--scrim-opacity: 1;
-}
-
-.page_content_wrap::before {
-	content: '';
-	position: fixed;
-	inset: 0 0 auto 0;
-	height: 18vh;
-	z-index: 80;
-	pointer-events: none;
-	opacity: var(--scrim-opacity, 1);
-	background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.5) 45%, rgba(0, 0, 0, 0.2) 70%, rgba(0, 0, 0, 0) 100%);
-}
-
-/*
- * Header: the dark frosted-glass bar, as a floating box with rounded corners,
- * holding the VS+ mark and the tagline. It slides away while you scroll down
- * the page and comes back as soon as you scroll up.
- */
-.siteHeader {
-	position: fixed;
-	top: 0.75rem;
-	left: 50%;
-	z-index: 95;
-	width: min(calc(100% - var(--gutter) * 2), 78rem);
-	height: 3.6rem;
-	pointer-events: none;
-	transform: translateX(-50%);
-	transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
-}
-
-body.nav-hidden .siteHeader {
-	transform: translate(-50%, calc(-100% - 1.5rem));
-	opacity: 0;
-}
-
-.siteHeader_glass {
-	position: absolute;
-	inset: 0;
-	border-radius: 1.1rem;
-	background: linear-gradient(180deg, rgba(10, 10, 10, 0.78), rgba(10, 10, 10, 0.6));
-	-webkit-backdrop-filter: blur(18px) saturate(1.6);
-	backdrop-filter: blur(18px) saturate(1.6);
-	border: 1px solid rgba(255, 255, 255, 0.1);
-	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.18);
-}
-
-.siteHeader_inner {
-	position: relative;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: 1.5rem;
-	height: 100%;
-	padding: 0 1.4rem;
-}
-
-.siteBrand {
-	display: block;
-	pointer-events: auto;
-}
-
-.siteBrand_mark {
-	display: block;
-	width: 4.2rem;
-	height: 1.4rem;
-	background: var(--white);
-	-webkit-mask: url('/assets/img/VSP-Square-logo.png') left center / contain no-repeat;
-	mask: url('/assets/img/VSP-Square-logo.png') left center / contain no-repeat;
-	transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.siteBrand:hover .siteBrand_mark {
-	transform: scale(1.06);
-}
-
-.siteBrand_text {
-	font-size: 0.72rem;
-	font-weight: 700;
-	letter-spacing: 0.05em;
-	text-transform: uppercase;
-	color: var(--white);
-	white-space: nowrap;
-}
-
-/* Narrow screens: the hamburger sits at the bar's right end, so the tagline moves under the logo. */
-@media (max-width: 1240px) {
-	.siteHeader { height: 3.9rem; }
-	.siteHeader_inner { flex-direction: column; align-items: flex-start; justify-content: center; gap: 0.2rem; padding-right: 4rem; }
-	.siteBrand_text { font-size: 0.62rem; }
-}
-
-/* ==========================================================================
-   Hero — full-screen showreel over a cream title card, then (pinned) a dark
-   blob grows and turns out of the centre and the intro fades in on it.
-   ========================================================================== */
-
-.homeVideo {
-	position: relative;
-	width: 100%;
-	height: 100vh;
-	height: 100svh;
-	background: var(--hero-bg);
-}
-
-.videowrapper {
-	position: absolute;
-	inset: 0;
-	overflow: hidden;
-}
-
-/* 3D project field (after uncommondesign.group) + preloader + intro */
-.vsField {
-	position: absolute;
-	inset: 0;
-	overflow: hidden;
-	perspective: 1000px;
-	perspective-origin: 50% 50%;
-	background: #050505;
-}
-
-.vsField_space {
-	position: absolute;
-	inset: 0;
-	transform-style: preserve-3d;
-}
-
-.vsField_tile {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	overflow: hidden;
-	border-radius: 4px;
-	background: #111;
-	box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.7);
-	opacity: 0;
-	backface-visibility: hidden;
-	will-change: transform, opacity;
-}
-
-.vsField_tile img,
-.vsField_tile video {
-	display: block;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-}
-
-/* Grey preloader: mark top left, counter bottom right; wipes up off the screen. */
-.vsLoader {
-	position: fixed;
-	inset: 0;
-	z-index: 10000;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	padding: 1.75rem var(--gutter);
-	background: #d4d3d6;
-	color: #111;
-	clip-path: inset(0% 0% 0% 0%);
-}
-
-.vsLoader_mark {
-	align-self: flex-start;
-	width: auto;
-	height: 2rem;
-	filter: brightness(0);
-}
-
-.vsLoader_label {
-	position: absolute;
-	left: var(--gutter);
-	bottom: 1.9rem;
-	margin: 0;
-	font-size: 0.7rem;
-	font-weight: 700;
-	letter-spacing: 0.08em;
-	text-transform: uppercase;
-}
-
-.vsLoader_count {
-	align-self: flex-end;
-	margin: 0;
-	font-size: clamp(4rem, 12vw, 10rem);
-	font-weight: 800;
-	line-height: 0.8;
-	letter-spacing: -0.05em;
-	font-variant-numeric: tabular-nums;
-}
-
-.introWrap {
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	width: 0;
-	height: 0;
-	z-index: 3;
-}
-
-.introText {
-	position: absolute;
-	left: 0;
-	top: 0;
-	/* Shown and hidden by the hero's scroll timeline only, so it can never sit over the headline. */
-	opacity: 0;
-	visibility: hidden;
-	width: min(860px, 88vw);
-	transform: translate(-50%, -50%);
-	color: var(--white);
-	font-size: 1.85rem;
-	line-height: 1.2;
-	font-weight: 600;
-}
-
-.introLead {
-	margin: 0;
-	font: inherit;
-}
-
-.mWord {
-	display: inline;
-	opacity: 0.16;
-	color: var(--white);
-}
-
-/* Facts rise in after the manifesto has been read. */
-.introFacts li {
-	opacity: 0;
-	transform: translateY(0.75rem);
-}
-
-.introFacts {
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	gap: 1.5rem;
-	margin-top: 2.5rem;
-	font-size: 0.75rem;
-	font-weight: 400;
-	line-height: 1.3;
-	color: rgba(255, 255, 255, 0.65);
-}
-
-.introFacts span {
-	display: block;
-}
-
-.introFacts b {
-	display: block;
-	margin-bottom: 0.3rem;
-	font-size: 1.6rem;
-	font-weight: 700;
-	letter-spacing: -0.03em;
-	color: var(--hi);
-}
-
-@media (min-width: 1550px) {
-	.introText { width: min(980px, 80vw); }
-}
-
-@media (max-width: 767px) {
-	.introText {
-		width: 100vw;
-		padding-inline: var(--gutter);
-	}
-	.introFacts { grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 1.5rem; }
-	.introFacts b { font-size: 1.25rem; }
-}
-
-@media (max-width: 700px) {
-	.introText { font-size: 1.2rem; }
-}
-
 
 /* ==========================================================================
    Client logos
@@ -550,7 +329,7 @@ body.nav-hidden .siteHeader {
 .workPlaceholder {
 	position: relative;
 	overflow: hidden;
-	background: #eceae8;
+	background: var(--stone);
 }
 
 .workPlaceholder.h { aspect-ratio: 490 / 276; }
@@ -603,7 +382,7 @@ body.nav-hidden .siteHeader {
 	font-weight: 500;
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
-	background: var(--lime);
+	background: var(--paper);
 	color: var(--ink);
 	padding: 0.35rem 0.7rem;
 	border-radius: 999px;
@@ -745,7 +524,7 @@ body.nav-hidden .siteHeader {
 .featuredWrap h3 {
 	margin: 0 0 3rem;
 	font-size: 4rem;
-	font-weight: 600;
+	font-weight: 300;
 	line-height: 1.05;
 	letter-spacing: -0.02em;
 	text-align: center;
@@ -753,7 +532,7 @@ body.nav-hidden .siteHeader {
 
 .featuredVideo {
 	position: relative;
-	background: #000 url('/assets/img/Cover.jpeg') center / cover no-repeat;
+	background: var(--ink) url('/assets/img/Cover.jpeg') center / cover no-repeat;
 }
 
 .featuredVideo video {
@@ -770,7 +549,7 @@ body.nav-hidden .siteHeader {
 	font: 500 0.75rem/1 var(--font);
 	letter-spacing: 0.04em;
 	color: var(--ink);
-	background: var(--lime);
+	background: var(--paper);
 	border: 0;
 	border-radius: 999px;
 	padding: 0.6rem 1rem;
@@ -850,7 +629,7 @@ body.nav-hidden .siteHeader {
 	margin-top: 1.5rem;
 	max-width: 26rem;
 	font-size: 0.95rem;
-	color: #5b5758;
+	color: var(--graphite);
 }
 
 .accordion {
@@ -934,7 +713,7 @@ body.nav-hidden .siteHeader {
 .accPanel p {
 	padding: 0 2rem 1.75rem 3rem;
 	font-size: 1rem;
-	color: #5b5758;
+	color: var(--graphite);
 	max-width: 34rem;
 }
 
@@ -946,7 +725,7 @@ body.nav-hidden .siteHeader {
 	height: 0.6rem;
 	border-radius: 50%;
 	background: var(--ink);
-	box-shadow: 0 0 0 3px var(--lime);
+	box-shadow: 0 0 0 3px var(--signal-deep);
 	transform: translateY(-50%);
 	transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
 	pointer-events: none;
@@ -999,7 +778,7 @@ body.nav-hidden .siteHeader {
 
 .resultNum {
 	font-size: clamp(2.6rem, 5vw, 4.6rem);
-	font-weight: 600;
+	font-weight: 200;
 	letter-spacing: -0.03em;
 	line-height: 1;
 	color: var(--lime);
@@ -1108,7 +887,7 @@ body.nav-hidden .siteHeader {
 	position: absolute;
 	z-index: 9999;
 	padding: 4px 8px;
-	background: #000;
+	background: var(--ink);
 	color: #fff;
 	font-size: 12px;
 	border-radius: 4px;
@@ -1135,245 +914,6 @@ body.nav-hidden .siteHeader {
 	/* Contact rows full width; the two link lists sit side by side. */
 	.footerCols { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 2.25rem; column-gap: 1rem; }
 	.footerCol:nth-child(-n + 2) { grid-column: 1 / -1; }
-}
-
-/* ==========================================================================
-   Navigation: edge bulge + full-screen backdrop
-   ========================================================================== */
-
-.MenuBulge_wrap {
-	position: fixed;
-	right: 0;
-	top: 50%;
-	z-index: 999;
-	transform: translateY(-50%);
-}
-
-.MenuBulge_open,
-.MenuBulge_close {
-	position: absolute;
-	right: 0;
-	z-index: 1;
-	transform: translateY(-50%);
-	pointer-events: none;
-}
-
-.MenuBulge_close {
-	opacity: 0;
-}
-
-.MenuBulge_open path { fill: var(--ink); }
-.MenuBulge_close path { fill: var(--white); }
-
-.hamburgerMenu,
-.CloseMenu {
-	position: absolute;
-	top: 50%;
-	right: 15px;
-	z-index: 4;
-	display: flex;
-	align-items: center;
-	width: 25px;
-	height: 40px;
-	cursor: pointer;
-	transform: translateY(-50%) translateX(100px);
-}
-
-.CloseMenu {
-	opacity: 0;
-}
-
-.hamburgerMenu > span,
-.CloseMenu > span {
-	position: relative;
-	display: block;
-	width: 100%;
-	height: 4px;
-	border-radius: 10px;
-	background: var(--white);
-}
-
-.hamburgerMenu > span::before,
-.hamburgerMenu > span::after {
-	content: '';
-	position: absolute;
-	inset: 0;
-	border-radius: 10px;
-	background: var(--white);
-	transform: translateY(-8px);
-}
-
-.hamburgerMenu > span::before {
-	transform: translateY(8px);
-}
-
-.CloseMenu > span {
-	background: transparent;
-}
-
-.CloseMenu > span::before,
-.CloseMenu > span::after {
-	content: '';
-	position: absolute;
-	inset: 0;
-	border-radius: 10px;
-	background: var(--ink);
-	transform: rotate(45deg);
-}
-
-.CloseMenu > span::before {
-	transform: rotate(-45deg);
-}
-
-.MenuBackdrop {
-	position: fixed;
-	inset: 0;
-	width: 100vw;
-	height: 100vh;
-	z-index: 190;
-	pointer-events: none;
-}
-
-.MenuBackdrop svg {
-	width: 100%;
-	height: 100%;
-	overflow: visible;
-}
-
-.MenuBackdrop path {
-	fill: var(--ink);
-}
-
-.menuWrap {
-	position: fixed;
-	inset: 0;
-	z-index: 200;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 6rem var(--gutter);
-	opacity: 0;
-	transform: translateX(100%);
-	color: var(--white);
-}
-
-.menuWrap_row {
-	position: relative;
-	display: grid;
-	grid-template-columns: 7fr 5fr;
-	width: 100%;
-	max-width: var(--maxw);
-	min-height: 60vh;
-}
-
-.MenuWrap_logo {
-	width: 7rem;
-}
-
-.menuWrap_note {
-	margin-top: 2rem;
-	font-size: 0.9rem;
-	opacity: 0.5;
-}
-
-.menuWrap_links {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	gap: 4rem;
-}
-
-.menuItems {
-	display: flex;
-	flex-direction: column;
-	gap: 2rem;
-}
-
-.menuItems a {
-	position: relative;
-	display: inline-block;
-	font-size: 3.5rem;
-	font-weight: 400;
-	line-height: 1;
-	text-decoration: none;
-	transition: transform 0.3s ease-in-out, color 0.3s;
-}
-
-.menuItems a:hover {
-	transform: translateX(1rem);
-	color: var(--lime);
-}
-
-.menuItems a::after {
-	content: '';
-	position: absolute;
-	left: 0;
-	top: 50%;
-	width: 10px;
-	height: 10px;
-	border-radius: 50%;
-	background: var(--lime);
-	opacity: 0;
-	transform: translateY(-150%) translateX(-1rem);
-	transition: all 0.3s ease-in-out;
-}
-
-.menuItems a:hover::after {
-	opacity: 1;
-	transform: translateY(-50%) translateX(-2rem);
-}
-
-.socialLinks {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 1.5rem;
-}
-
-.socialLinks a {
-	font-size: 0.85rem;
-	text-decoration: none;
-	opacity: 0.5;
-	transition: opacity 0.2s;
-}
-
-.socialLinks a:hover {
-	opacity: 1;
-}
-
-@media (max-width: 1240px) {
-	.MenuBulge_open,
-	.MenuBulge_close {
-		display: none;
-	}
-	.MenuBulge_wrap {
-		top: 1.45rem;
-		right: calc(var(--gutter) + 1.1rem);
-		transform: none;
-		mix-blend-mode: normal; /* it sits on the dark bar, so no colour inversion */
-		transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
-	}
-	.hamburgerMenu,
-	.CloseMenu {
-		top: 0.05rem;
-		right: 0;
-		transform: translateX(100px);
-	}
-	/* White bars on the dark bar; they leave and return with it. */
-	body.nav-hidden .MenuBulge_wrap {
-		transform: translateY(-5rem);
-		opacity: 0;
-	}
-	.CloseMenu > span::before,
-	.CloseMenu > span::after {
-		background: var(--white);
-	}
-}
-
-@media (max-width: 767px) {
-	.menuWrap_row { grid-template-columns: 1fr; row-gap: 3rem; min-height: 0; }
-	.menuItems a { font-size: 2.25rem; }
-	.menuItems { gap: 1.5rem; }
-	.menuWrap_note { display: none; }
 }
 
 /* ==========================================================================
@@ -1418,12 +958,8 @@ body.nav-hidden .siteHeader {
    ========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
-	.page_content_wrap::before { position: absolute; }
 	.clientele_track { animation: none; flex-wrap: wrap; width: auto; }
 	.clientele_list[aria-hidden="true"] { display: none; }
 	.clientele_list { flex-wrap: wrap; justify-content: center; padding: 0 var(--gutter); gap: 2rem 3rem; }
-	.vsHero_video, .vsHero_grain::after { display: none; }
-	.introText, .mWord, .introFacts li { opacity: 1; visibility: visible; transform: none; }
-	.mWord--key { color: var(--hi); }
 	*, *::before, *::after { transition-duration: 0.01ms !important; }
 }

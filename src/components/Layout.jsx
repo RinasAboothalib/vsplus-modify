@@ -4,7 +4,6 @@ import Nav from './Nav.jsx';
 import BackToTop from './BackToTop.jsx';
 import Footer from './Footer.jsx';
 import SheetDock from './SheetDock.jsx';
-import TLink from './TLink.jsx';
 import { usePageMeta } from '../context/PageContext.jsx';
 import { useTransition } from '../context/TransitionContext.jsx';
 import { gsap, ScrollTrigger, scrollToTarget, startLenis } from '../lib/motion.js';
@@ -71,7 +70,7 @@ export default function Layout() {
 		};
 	}, [] );
 
-	// The header pill slides away while you scroll down and returns as soon as you scroll up.
+	// The header bar slides away while you scroll down and returns as soon as you scroll up.
 	useEffect( () => {
 		const body = document.body;
 		let last = window.scrollY;
@@ -102,15 +101,6 @@ export default function Layout() {
 			<Nav />
 			<BackToTop />
 			<main id="main" className="page_content_wrap">
-				<header className="siteHeader">
-					<div className="siteHeader_glass" aria-hidden="true"></div>
-					<div className="siteHeader_inner">
-						<TLink to="/" className="siteBrand" aria-label="Visual Studios Plus — home">
-							<span className="siteBrand_mark" aria-hidden="true"></span>
-						</TLink>
-						<p className="siteBrand_text">Visual Studios+ · Creative Agency</p>
-					</div>
-				</header>
 				<Outlet />
 				<Footer />
 			</main>
